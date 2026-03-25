@@ -1,38 +1,82 @@
-.App {
-  text-align: center;
+body {
+  background-color: #1a1a2e;
+  color: #eee;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100vh;
+  gap: 2rem;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  font-size: 2rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a29bfe;
+  margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.display {
+  font-size: 5rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  background: #16213e;
+  padding: 1.5rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
+
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+
+button {
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.start  { background-color: #00b894; color: #fff; }
+.pause  { background-color: #fdcb6e; color: #333; }
+.reset  { background-color: #d63031; color: #fff; }
+.lap    { background-color: #6c5ce7; color: #fff; }
+.lap:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.laps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 320px;
+  max-height: 240px;
+  overflow-y: auto;
+  background: #16213e;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.laps li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid #0f3460;
+  font-size: 0.95rem;
+}
+
+.laps li:last-child { border-bottom: none; }
+
+.lap-num  { color: #a29bfe; }
+.lap-time { font-variant-numeric: tabular-nums; }
