@@ -25,7 +25,8 @@ function App() {
   };
 
   const lap = () => {
-    setLaps(prev => [...prev, time]);
+    const splitTime = laps.length === 0 ? time : time - laps.reduce((sum, lap) => sum + lap.splitTime, 0) - laps[laps.length - 1].splitTime;
+    setLaps(prev => [...prev, { totalTime: time, splitTime }]);
   };
 
   const formatTime = (ms) => {
@@ -48,10 +49,11 @@ function App() {
       </div>
       {laps.length > 0 && (
         <ol className="laps">
-          {laps.map((t, i) => (
+          {laps.map((lap, i) => (
             <li key={i}>
               <span className="lap-num">Lap {i + 1}</span>
-              <span className="lap-time">{formatTime(t)}</span>
+              <span className="lap-time">{formatTime(lap.splitTime)}</span>
+              <span className="lap-total">{formatTime(lap.totalTime)}</span>
             </li>
           ))}
         </ol>
