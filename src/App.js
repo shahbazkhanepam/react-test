@@ -5,6 +5,7 @@ function App() {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
   const [laps, setLaps] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
   const intervalRef = useRef(null);
 
   useEffect(() => {
@@ -25,7 +26,16 @@ function App() {
   };
 
   const lap = () => {
-    setLaps(prev => [...prev, time]);
+    const splitTime = laps.length === 0 ? time : time - laps.reduce((sum, lap) => sum + lap.splitTime, 0) - laps[laps.length - 1].splitTime;
+    setLaps(prev => [...prev, { totalTime: time, splitTime }]);
+  };
+
+  const deleteLap = (index) => {
+    setLaps(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const clearLaps = () => {
+    setLaps([]);
   };
 
   const formatTime = (ms) => {
@@ -36,8 +46,13 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <h1>Timer</h1>
+    <div className={`app ${darkMode ? 'dark' : ''}`}>
+      <div className="header">
+        <h1>Timer</h1>
+        <button onClick={() => setDarkMode(d => !d)} className="theme-toggle" title="Toggle dark mode">
+          {darkMode ? '☀️' : '🌙'}
+        </button>
+      </div>
       <div className="display">{formatTime(time)}</div>
       <div className="controls">
         <button onClick={() => setRunning(r => !r)} className={running ? 'pause' : 'start'}>
@@ -45,13 +60,16 @@ function App() {
         </button>
         <button onClick={lap} disabled={!running} className="lap">Lap</button>
         <button onClick={reset} className="reset">Reset</button>
+        {laps.length > 0 && <button onClick={clearLaps} className="clear-laps">Clear Laps</button>}
       </div>
       {laps.length > 0 && (
         <ol className="laps">
-          {laps.map((t, i) => (
+          {laps.map((lap, i) => (
             <li key={i}>
               <span className="lap-num">Lap {i + 1}</span>
-              <span className="lap-time">{formatTime(t)}</span>
+              <span className="lap-time">{formatTime(lap.splitTime)}</span>
+              <span className="lap-total">{formatTime(lap.totalTime)}</span>
+              <button onClick={() => deleteLap(i)} className="delete-lap" title="Delete lap">✕</button>
             </li>
           ))}
         </ol>

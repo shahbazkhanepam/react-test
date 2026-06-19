@@ -11,6 +11,14 @@ body {
   min-height: 100vh;
   gap: 2rem;
   font-family: 'Segoe UI', sans-serif;
+  background-color: #1a1a2e;
+  color: #eee;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.app.dark {
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 h1 {
@@ -34,6 +42,8 @@ h1 {
 .controls {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 button {
@@ -71,12 +81,95 @@ button:hover {
 .laps li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.6rem 1.25rem;
   border-bottom: 1px solid #0f3460;
   font-size: 0.95rem;
+  gap: 1rem;
 }
 
 .laps li:last-child { border-bottom: none; }
 
-.lap-num  { color: #a29bfe; }
-.lap-time { font-variant-numeric: tabular-nums; }
+.lap-num  { color: #a29bfe; min-width: 50px; }
+.lap-time { font-variant-numeric: tabular-nums; flex: 1; text-align: right; }
+.lap-total { font-variant-numeric: tabular-nums; color: #74b9ff; font-size: 0.85rem; text-align: right; min-width: 70px; }
+
+/* Dark Mode */
+.app.dark h1 {
+  color: #667eea;
+}
+
+.app.dark .display {
+  background: #f0f0f0;
+  color: #333;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.app.dark .laps {
+  background: #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.app.dark .laps li {
+  border-bottom-color: #ddd;
+}
+
+.app.dark .lap-num {
+  color: #667eea;
+}
+
+.app.dark .lap-total {
+  color: #4a90e2;
+}
+
+/* Header */
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.theme-toggle {
+  position: absolute;
+  right: 2rem;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* Delete Lap Button */
+.delete-lap {
+  padding: 0.4rem 0.7rem;
+  background-color: #e74c3c;
+  color: #fff;
+  font-size: 0.9rem;
+  border-radius: 0.3rem;
+  min-width: auto;
+}
+
+.delete-lap:hover {
+  opacity: 0.85;
+}
+
+/* Clear Laps Button */
+.clear-laps {
+  background-color: #e67e22;
+  color: #fff;
+}
